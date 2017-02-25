@@ -1,24 +1,37 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/app.js',
+  entry: './src/index.jsx',
   output: {
     path: path.join(__dirname, '/dist/'),
     filename: 'wild-rice.js',
   },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.less$/,
-        loader: 'style!css!less',
+        test: /\.jsx?$/,
+        include: /src/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['latest', 'react'],
+            },
+          },
+          'eslint-loader',
+        ],
       },
       {
-        test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['es2015'],
-        },
+        test: /\.less$/,
+        include: /src/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'less-loader',
+        ],
       },
     ],
   },
