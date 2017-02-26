@@ -18,7 +18,7 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: ['latest', 'react'],
+              presets: ['latest', 'stage-3', 'react'],
             },
           },
           'eslint-loader',

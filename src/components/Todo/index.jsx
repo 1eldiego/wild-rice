@@ -1,20 +1,36 @@
 import React from 'react';
-import List from './List';
+import { connect } from 'react-redux';
+import Item from './Item';
 import './styles.less';
 
-const todos = [
-  {
-    id: 'todo1',
-    name: 'Comprar adornos navideños',
-    done: false,
-  },
-  {
-    id: 'todo2',
-    name: 'Sacar la basura',
-    done: true,
-  },
-];
+const Todo = props => (
+  <ul>
+    {props.todos.map(todo => (
+      <Item
+        completeTodo={props.completeTodo(todo.id)}
+        key={todo.id}
+        name={todo.name}
+        done={todo.done}
+      />
+    ))}
+  </ul>
+);
 
-const Todo = () => <List todos={todos} />;
+Todo.propTypes = {
+  completeTodo: React.PropTypes.func.isRequired,
+  todos: React.PropTypes.arrayOf(React.PropTypes.shape({
+    name: React.PropTypes.string.isRequired,
+    done: React.PropTypes.bool.isRequired,
+    id: React.PropTypes.string.isRequired,
+  })).isRequired,
+};
 
-export default Todo;
+const mapStateToProps = state => ({
+  todos: state.todos,
+});
+
+const mapDispatchToProps = dispatch => ({
+  completeTodo: id => () => dispatch({ type: 'COMPLETE_TODO', payload: id }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Todo);
