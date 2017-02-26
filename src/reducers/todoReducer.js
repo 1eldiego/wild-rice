@@ -1,3 +1,5 @@
+import uniqid from 'uniqid';
+
 const initialState = [
   {
     id: 'todo1',
@@ -31,7 +33,11 @@ const todoReducer = (state = initialState, action) => {
       break;
 
     case 'ADD_TODO':
-      newState = [...state, action.payload];
+      newState = [...state, {
+        id: uniqid(),
+        done: false,
+        name: action.payload,
+      }];
       break;
 
     default:

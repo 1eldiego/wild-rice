@@ -4,7 +4,7 @@ const Item = props => (
   <li>
     {props.name}
     {props.done ||
-      <button onClick={() => props.completeTodo()}>Terminado</button>
+      <button onClick={() => props.completeTodo()}>Terminar</button>
     }
     {!props.done ||
       <span>OK</span>
