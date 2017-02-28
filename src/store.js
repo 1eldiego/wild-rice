@@ -6,4 +6,14 @@ const reducers = combineReducers({
   todos: todoReducer,
 });
 
-export default createStore(reducers, {}, applyMiddleware(logger()));
+// eslint-disable-next-line
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+export default createStore(
+  reducers,
+  {},
+  composeEnhancers(
+    applyMiddleware(logger()),
+  ),
+);
+
