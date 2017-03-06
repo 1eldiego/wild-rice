@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Item from './Item';
 import AddItem from './AddItem';
+import { completeTodo, addTodo, addText } from '../../actions/todoActions';
 import './styles.less';
 
 const Todo = props => (
@@ -40,9 +41,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  completeTodo: id => () => dispatch({ type: 'COMPLETE_TODO', payload: id }),
-  addTodo: () => dispatch({ type: 'ADD_TODO' }),
-  addText: event => dispatch({ type: 'ADD_TEXT', payload: event.target.value }),
+  completeTodo: id => () => dispatch(completeTodo(id)),
+  addTodo: () => dispatch(addTodo()),
+  addText: event => dispatch(addText(event.target.value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Todo);
