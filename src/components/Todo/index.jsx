@@ -1,16 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Item from './Item';
 import AddItem from './AddItem';
-import { completeTodo, addTodo, addText } from '../../actions/todoActions';
 import './styles.less';
 
 const Todo = props => (
   <ul>
     {props.todosList.map(todo => (
       <Item
-        completeTodo={props.completeTodo(todo.id)}
         key={todo.id}
+        id={todo.id}
+        completeTodo={props.completeTodo}
         name={todo.name}
         done={todo.done}
       />
@@ -35,15 +34,4 @@ Todo.propTypes = {
   })).isRequired,
 };
 
-const mapStateToProps = state => ({
-  todosList: state.todos.list,
-  typeText: state.todos.typeText,
-});
-
-const mapDispatchToProps = dispatch => ({
-  completeTodo: id => () => dispatch(completeTodo(id)),
-  addTodo: () => dispatch(addTodo()),
-  addText: event => dispatch(addText(event.target.value)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Todo);
+export default Todo;
